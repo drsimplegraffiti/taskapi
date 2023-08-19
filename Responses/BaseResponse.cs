@@ -10,7 +10,7 @@ namespace TasksApi.Responses
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] //this will not serialize the property if it is null
         public string ErrorCode { get; set; } = String.Empty;
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] //JsonIgnoreCondition.WhenWritingDefault will not serialize the property if it is null or default value
         public string Error { get; set; } = String.Empty;
     }
 

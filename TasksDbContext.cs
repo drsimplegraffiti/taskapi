@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TasksApi
 {
-    public partial class TasksDbContext : DbContext
+    public partial class TasksDbContext : DbContext  // partial class allows us to extend the class in another file without having to modify the generated code
     {
         public TasksDbContext()
         {
@@ -15,7 +15,7 @@ namespace TasksApi
         {
         }
 
-        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; } // virtual allows us to override the property in a derived class
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
