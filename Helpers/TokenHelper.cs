@@ -10,13 +10,14 @@ namespace TasksApi.Helpers
         public const string Issuer = "http://codingsonata.com";
         public const string Audience = "http://codingsonata.com";
         public const string Secret = "p0GXO6VuVZLRPef0tyO9jCqK4uZufDa6LP4n8Gj+8hQPB30f94pFiECAnPeMi5N6VT3/uscoGH7+zJrv4AuuPg==";
-        public static async Task<string> GenerateAccessToken(int userId)
+        public static async Task<string> GenerateAccessToken(int userId, string email)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Convert.FromBase64String(Secret);
 
             var claimsIdentity = new ClaimsIdentity(new[] {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString())
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                  new Claim(ClaimTypes.Email, email),
             });
 
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
@@ -28,6 +29,7 @@ namespace TasksApi.Helpers
                 Audience = Audience,
                 Expires = DateTime.Now.AddMinutes(15),
                 SigningCredentials = signingCredentials,
+                
 
             };
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);

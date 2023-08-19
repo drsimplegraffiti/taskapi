@@ -2,6 +2,6 @@
 {
     public class SaveTaskResponse : BaseResponse
     {
-        public Task Task { get; set; }
+        public Task? Task { get; set; }
     }
 }

@@ -66,7 +66,7 @@ namespace TasksApi.Controllers
                 return BadRequest(validateRefreshTokenResponse);
             }
 
-            var tokenResponse = await tokenService.GenerateTokensAsync(validateRefreshTokenResponse.UserId);
+            var tokenResponse = await tokenService.GenerateTokensAsync(validateRefreshTokenResponse.UserId, validateRefreshTokenResponse.Email);
 
             return Ok(new TokenResponse { AccessToken = tokenResponse.Item1, RefreshToken = tokenResponse.Item2 });
         }

@@ -16,16 +16,16 @@ namespace TasksApi.Services
             this.tasksDbContext = tasksDbContext;
         }
 
-        public async Task<Tuple<string, string>> GenerateTokensAsync(int userId)
+        public async Task<Tuple<string, string>> GenerateTokensAsync(int userId, string email)
         {
-            var accessToken = await TokenHelper.GenerateAccessToken(userId);
+            var accessToken = await TokenHelper.GenerateAccessToken(userId, email);
             var refreshToken = await TokenHelper.GenerateRefreshToken();
 
             var userRecord = await tasksDbContext.Users.Include(o => o.RefreshTokens).FirstOrDefaultAsync(e => e.Id == userId);
 
             if (userRecord == null)
             {
-                return null;
+                return null!; //! is a null-forgiving operator
             }
 
             var salt = PasswordHelper.GetSecureSalt();
@@ -53,6 +53,8 @@ namespace TasksApi.Services
 
             return token;
         }
+
+     
 
         public async Task<bool> RemoveRefreshTokenAsync(User user)
         {

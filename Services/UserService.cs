@@ -66,7 +66,8 @@ namespace TasksApi.Services
                 };
             }
 
-            var token = await System.Threading.Tasks.Task.Run(() => tokenService.GenerateTokensAsync(user.Id));
+            var token = await System.Threading.Tasks.Task.Run(() => tokenService.GenerateTokensAsync(user.Id, user.Email));
+            // in the above line we are calling a method that returns a task, so we need to use await and then .Result to get the result of the task
 
             return new TokenResponse
             {
